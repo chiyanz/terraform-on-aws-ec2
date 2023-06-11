@@ -10,7 +10,7 @@
 # Output - For Loop with List
 output "for_output_list" {
   description = "For Loop with List"
-  value = [for instance in aws_instance.myec2vm: instance.public_dns]
+  value = [for instance in aws_instance.myec2vm: instance.public_dns] # uses python for - in syntax to return variables as outputs
 }
 
 # Output - For Loop with Map
@@ -36,5 +36,6 @@ output "legacy_splat_instance_publicdns" {
 # Output Latest Generalized Splat Operator - Returns the List
 output "latest_splat_instance_publicdns" {
   description = "Generalized latest Splat Operator"
-  value = aws_instance.myec2vm[*].public_dns
+  value = aws_instance.myec2vm[*].public_dns # public_dns of all myec2 instances
 }
+# compared to:   value = [for instance in aws_instance.myec2vm: instance.public_dns] 
