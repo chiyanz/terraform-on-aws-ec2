@@ -6,7 +6,8 @@ output "instance_publicip" {
   description = "EC2 Instance Public IP"
   #value = aws_instance.myec2vm.*.public_ip   # Legacy Splat
   #value = aws_instance.myec2vm[*].public_ip  # Latest Splat
-  value = toset([for instance in aws_instance.myec2vm: instance.public_ip])
+  # spalt will NOT work as the value passed in is a SET/MAP, not a list
+  value = toset([for instance in aws_instance.myec2vm: instance.public_ip]) # for-loop works for traversing a set
 }
 
 # EC2 Instance Public DNS with TOSET
@@ -19,6 +20,7 @@ output "instance_publicdns" {
 
 # EC2 Instance Public DNS with TOMAP
 output "instance_publicdns2" {
+  # map also converts to same type
   value = tomap({for az, instance in aws_instance.myec2vm: az => instance.public_dns})
 }
 

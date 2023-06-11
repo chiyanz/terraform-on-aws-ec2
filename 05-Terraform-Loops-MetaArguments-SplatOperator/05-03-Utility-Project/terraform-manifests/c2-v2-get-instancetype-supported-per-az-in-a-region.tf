@@ -2,6 +2,7 @@
 # Get the List of Availability Zones in a Particular region where that respective Instance Type is supported
 # Datasource
 data "aws_ec2_instance_type_offerings" "my_ins_type2" {
+  # create multiple data blocks for each AZ dynamically from a list
   for_each = toset([ "us-east-1a", "us-east-1b", "us-east-1e" ])
   filter {
     name   = "instance-type"
